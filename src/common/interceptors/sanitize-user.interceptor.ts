@@ -13,12 +13,13 @@ export class SanitizeUserInterceptor implements NestInterceptor {
     return next.handle().pipe(
       map((data) => {
         if (!data) return data;
-
+        console.log(data);
         if (Array.isArray(data)) {
           return data.map(({ password, ...rest }) => rest);
         }
 
         const { password, ...rest } = data;
+        console.log(rest);
         return rest;
       }),
     );

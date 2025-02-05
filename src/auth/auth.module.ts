@@ -13,7 +13,7 @@ import { TokensModule } from 'src/tokens/tokens.module';
     TokensModule,
     PassportModule,
     JwtModule.register({
-      secret: 'your-secret-key', // Replace with a secure key
+      secret: process.env.JWT_SECRET, // Replace with a secure key
       signOptions: { expiresIn: '1h' }, // Access token expiry
     }),
   ],

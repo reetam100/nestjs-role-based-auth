@@ -12,7 +12,9 @@ export class TokenService {
   }
 
   async findToken(token: string, type: string) {
-    return this.tokenModel.findOne({ token, type });
+    const foundToken = await this.tokenModel.findOne({ token, type });
+    console.log(foundToken);
+    return foundToken;
   }
 
   async deleteToken(token: string, type: TokenType) {

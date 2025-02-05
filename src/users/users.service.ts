@@ -8,6 +8,7 @@ import { Model } from 'mongoose';
 import { User, UserRole } from './schemas/users.schema';
 
 import * as bcrypt from 'bcrypt';
+import { ApiError } from 'src/common/utils/api-error';
 
 @Injectable()
 export class UsersService {
@@ -22,7 +23,7 @@ export class UsersService {
       const user = await this.userModel.findById(id);
       return user;
     } catch (error) {
-      throw new NotFoundException();
+      throw new ApiError(404, 'User Not found');
     }
   }
 
