@@ -3,12 +3,14 @@ import { AuthService } from './auth.service';
 import { UsersService } from 'src/users/users.service';
 import { UserRole } from 'src/users/schemas/users.schema';
 import { SanitizeUser } from 'src/common/decorators/sanitize-user.decorator';
+import { EmailService } from 'src/email/email.service';
 
 @Controller('auth')
 export class AuthController {
   constructor(
     private readonly authService: AuthService,
     private readonly usersService: UsersService,
+    private readonly emailService: EmailService,
   ) {}
 
   @Post('register')
@@ -19,6 +21,14 @@ export class AuthController {
       body.email,
       body.password,
       body.role,
+    );
+    await this.emailService.sendEmail(
+      body.email,
+      'Registered successfully',
+      'd-e9d31fe5508742a399d5a0d2a5fb5b4c',
+      {
+        TEXT: 'You have been registered successfully',
+      },
     );
     return { message: 'User registered successfully', userId: user._id };
   }
