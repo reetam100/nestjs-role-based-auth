@@ -11,7 +11,6 @@ import { User, UserRole } from './schemas/users.schema';
 import { JwtAuthGuard } from 'src/auth/guards/jwt-guard.guard';
 import { RolesGuard } from 'src/auth/guards/roles.guard';
 import { Request, Response } from 'express';
-import { SanitizeUser } from 'src/common/decorators/sanitize-user.decorator';
 import { ApiSuccess } from 'src/common/utils/api-success';
 import { UsersService } from './users.service';
 
@@ -25,7 +24,6 @@ export class UsersController {
   @Get('/private')
   @UseGuards(JwtAuthGuard, RolesGuard)
   @Roles(UserRole.ADMIN)
-  @SanitizeUser()
   async getUserData(@Req() req: RequestWithUser, @Res() res: Response) {
     // @ts-ignore
     console.log('user: ', req.user);

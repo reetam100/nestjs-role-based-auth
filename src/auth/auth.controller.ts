@@ -2,7 +2,6 @@ import { Controller, Post, Body } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { UsersService } from 'src/users/users.service';
 import { UserRole } from 'src/users/schemas/users.schema';
-import { SanitizeUser } from 'src/common/decorators/sanitize-user.decorator';
 import { EmailService } from 'src/email/email.service';
 
 @Controller('auth')
@@ -34,7 +33,6 @@ export class AuthController {
   }
 
   @Post('login')
-  @SanitizeUser()
   async login(@Body() body: { email: string; password: string }) {
     const user = await this.authService.validateUser(body.email, body.password);
 
