@@ -3,6 +3,11 @@ import { AuthService } from './auth.service';
 import { UsersService } from 'src/users/users.service';
 import { UserRole } from 'src/users/schemas/users.schema';
 import { EmailService } from 'src/email/email.service';
+import {
+  LoginUserDto,
+  RefreshTokenDto,
+  RegisterUserDto,
+} from './dtos/auth.dto';
 
 @Controller('auth')
 export class AuthController {
@@ -13,9 +18,7 @@ export class AuthController {
   ) {}
 
   @Post('register')
-  async register(
-    @Body() body: { email: string; password: string; role?: UserRole },
-  ) {
+  async register(@Body() body: RegisterUserDto) {
     const user = await this.usersService.register(
       body.email,
       body.password,
@@ -33,7 +36,7 @@ export class AuthController {
   }
 
   @Post('login')
-  async login(@Body() body: { email: string; password: string }) {
+  async login(@Body() body: LoginUserDto) {
     const user = await this.authService.validateUser(body.email, body.password);
 
     // 2️⃣ Pass the found user object to login()
