@@ -18,4 +18,14 @@ import { SocketModule } from './socket/socket.module';
     SocketModule,
   ],
 })
-export class AppModule {}
+export class AppModule {
+  constructor() {
+    // console.log(process.env.MONGO_URI);
+  }
+
+  public run() {
+    console.log('Hello: ', process.env.MONGO_URI);
+  }
+}
+
+new AppModule().run();

@@ -39,7 +39,7 @@ export class UsersService {
   async register(
     email: string,
     password: string,
-    role: UserRole = UserRole.USER,
+    role: 'user' | 'admin',
   ): Promise<User> {
     const existingUser = await this.findByEmail(email);
     if (existingUser) throw new ConflictException('Email already registered');
